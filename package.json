@@ -1,0 +1,24 @@
+{
+  "name": "minehut_console",
+  "version": "1.0.0",
+  "description": "Mineut offline/online console",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "\\"
+  },
+  "author": "Ronaldgameking",
+  "license": "MIT",
+  "devDependencies": {
+    "discord.js": "^11.5.1",
+    "electron": "^6.0.12",
+    "electron-packager": "^14.0.6",
+    "electron-winstaller": "^4.0.0"
+  },
+  "dependencies": {
+    "website-scraper": "^4.2.0"
+  }
+}

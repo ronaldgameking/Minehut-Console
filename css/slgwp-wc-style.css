@@ -1,0 +1,54 @@
+.woocommerce-account-fields input[type="password"]{
+  color:white !important;
+}
+
+.wc-box-office-ticket-form{
+  clear:both;
+  padding-top: 2rem;
+}
+
+button.single_add_to_cart_button{
+  clear:both;
+}
+
+.logged-in .button_solid_color{
+  display:none !important;
+}
+
+#menu-item-7234, #menu-item-7633{
+  display:none;
+}
+
+.logged-in #menu-item-7234, .logged-in #menu-item-7633{
+  display:block;
+}
+
+/*body[data-form-style="minimal"] .minimal-form-input.has-text input, .woocommerce form .form-row input.input-text{
+  color:white !important;
+}*/
+
+.woocommerce-form-login input[type="password"]{
+  color:white !important;
+}
+
+html .woocommerce div.product form.cart div.quantity, .woocommerce-page div.product form.cart div.quantity{
+  margin: 0px 0 50px;
+}
+
+.order-again{
+  display:none;
+}
+
+/*HIDE BILLING TEXT ON ORDER RECEIVED PAGE TO REDUCE CONFUSION, SINCE IT'S A FREE TICKET*/
+/*.woocommerce-order-received .woocommerce-customer-details{
+  display:none;
+}*/
+
+body[data-form-style="minimal"] label[for="account_password"] span.text{
+  top:25% !important;
+}
+
+.woocommerce .cart_item dt{
+  color:white;
+  font-weight: bold !important;
+}
