@@ -1,7 +1,7 @@
 // Modules to control application life and create native browser window
+require('v8-compile-cache');
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
-const electronInstaller = require('electron-winstaller');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -27,7 +27,7 @@ function createWindow () {
       preload: path.join(__dirname, 'preload.js')
     }
   })
-mainWindow.setProgressBar(3)
+mainWindow.setProgressBar(1)
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
@@ -67,12 +67,23 @@ app.on('activate', function () {
 const electron = require('electron')
 const Menu = electron.Menu
 
-let template = [{
+let contextMenu = [{
   label: 'File', 
   submenu: [{
-    label: 'Exit',
+	label: 'Home',
+	acceleratorL: 'CmdOrCtrl+H',
 	click: function () {
-	  electron.dialog.showMessageBox();
+		mainWindow.loadFile('index.html')
+  }}, {
+	label: 'Minimize',
+    accelerator: 'CmdOrCtrl+M',
+    role: 'minimize'
+  }, {
+    label: 'Exit',
+	enabled: true,
+	click: function () {
+	  BrowserWindow.quit;
+	  app.quit;
   } }] }, {
   label: 'View',
   submenu: [{
@@ -106,55 +117,31 @@ let template = [{
         focusedWindow.setFullScreen(!focusedWindow.isFullScreen())
       }
     }
-  }, {
-    type: 'separator'
-  }, {
-    label: 'App Menu Demo',
-    click: function (item, focusedWindow) {
-      if (focusedWindow) {
-        const options = {
-          type: 'info',
-          title: 'Application Menu Demo',
-          buttons: ['Ok'],
-          message: 'This demo is for the Menu section, showing how to create a clickable menu item in the application menu.'
-        }
-        electron.dialog.showMessageBox(focusedWindow, options, function () {})
-      }
-    }
-  }]
-}, {
-  label: 'Window',
-  role: 'window',
-  submenu: [{
-    label: 'Minimize',
-    accelerator: 'CmdOrCtrl+M',
-    role: 'minimize'
-  }, {
-    label: 'Close',
-    accelerator: 'CmdOrCtrl+W',
-    role: 'close'
-  }, {
-    type: 'separator'
-  }, {
-    label: 'Reopen Window',
-    accelerator: 'CmdOrCtrl+Shift+T',
-    enabled: false,
-    key: 'reopenMenuItem',
-    click: function () {
-      app.emit('activate')
-    }
-  }]
-}, {
-  label: 'Help',
-  role: 'help',
-  submenu: [{
-    label: 'Learn More',
-    click: function () {
-      electron.shell.openExternal('http://electron.atom.io')
-    }
-  }]
-}]
-
+  }] }, {
+	  label: 'Help',
+	  role: 'help',
+	  submenu: [{
+		type: 'separator'
+	  }, {
+		label: 'Learn More',
+		click: function () {
+		  electron.shell.openExternal('https://github.com/ronaldgameking/Minehut-Console')
+	  }
+	  }, {
+		label: 'About',
+		click: function (item, focusedWindow) {
+		  if (focusedWindow) {
+			const AboutOptions = {
+			  type: 'info',
+			  title: 'Minehut Console',
+			  buttons: ['Ok'],
+			  message: 'This application has been built to make life simple by skipping the need of a external browser. Built with Electron.'
+			}
+			electron.dialog.showMessageBox(focusedWindow, AboutOptions, function () {})
+		  }
+		}
+  }]}
+  ]
 function addUpdateMenuItems (items, position) {
   if (process.mas) return
 
@@ -205,7 +192,7 @@ function findReopenMenuItem () {
 
 if (process.platform === 'darwin') {
   const name = electron.app.getName()
-  template.unshift({
+  contextMenu.unshift({
     label: name,
     submenu: [{
       label: `About ${name}`,
@@ -241,24 +228,48 @@ if (process.platform === 'darwin') {
   })
 
   // Window menu.
-  template[3].submenu.push({
+  contextMenu[3].submenu.push({
     type: 'separator'
   }, {
     label: 'Bring All to Front',
     role: 'front'
   })
 
-  addUpdateMenuItems(template[0].submenu, 1)
+  addUpdateMenuItems(contextMenu[0].submenu, 1)
 }
 
 if (process.platform === 'win32') {
-  const helpMenu = template[template.length - 1].submenu
+  const helpMenu = contextMenu[contextMenu.length - 1].submenu
   addUpdateMenuItems(helpMenu, 0)
 }
 
 app.on('ready', function () {
-  const menu = Menu.buildFromTemplate(template)
+  const menu = Menu.buildFromTemplate(contextMenu)
   Menu.setApplicationMenu(menu)
+  let win = new BrowserWindow()
+  win.webContents.session.on('will-download', (event, item, webContents) => {
+  // Set the save path, making Electron not to prompt a save dialog.
+  item.setSavePath('/tmp/save.pdf')
+
+  item.on('updated', (event, state) => {
+    if (state === 'interrupted') {
+      console.log('Download is interrupted but can be resumed')
+    } else if (state === 'progressing') {
+      if (item.isPaused()) {
+        console.log('Download is paused')
+      } else {
+        console.log(`Received bytes: ${item.getReceivedBytes()}`)
+      }
+    }
+  })
+  item.once('done', (event, state) => {
+    if (state === 'completed') {
+      console.log('Download successfully')
+    } else {
+      console.log(`Download failed: ${state}`)
+    }
+  })
+})
 })
 
 app.on('browser-window-created', function () {

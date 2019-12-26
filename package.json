@@ -1,24 +1,27 @@
 {
   "name": "minehut_console",
-  "version": "1.0.0",
+  "version": "0.0.1-17b",
   "description": "Mineut offline/online console",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-packager . --asar --platform all",
+    "build:win32_x64": "electron-packager . Minehut-Console --asar --platform win32 --arch x64 --overwrite"
   },
   "repository": {
     "type": "git",
     "url": "\\"
   },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "author": "Ronaldgameking",
   "license": "MIT",
   "devDependencies": {
-    "discord.js": "^11.5.1",
-    "electron": "^6.0.12",
-    "electron-packager": "^14.0.6",
-    "electron-winstaller": "^4.0.0"
+    "electron": "^6.1.5"
   },
   "dependencies": {
+    "asar": "^2.0.1",
+    "electron-packager": "^14.1.1",
+    "v8-compile-cache": "^2.1.0",
     "website-scraper": "^4.2.0"
   }
 }
