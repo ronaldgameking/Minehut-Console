@@ -1,6 +1,6 @@
 {
   "name": "minehut_console",
-  "version": "0.0.1-17b",
+  "version": "0.0.1-19b",
   "description": "Mineut offline/online console",
   "main": "main.js",
   "scripts": {
@@ -12,7 +12,6 @@
     "type": "git",
     "url": "\\"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "author": "Ronaldgameking",
   "license": "MIT",
   "devDependencies": {

@@ -135,7 +135,7 @@ let contextMenu = [{
 			  type: 'info',
 			  title: 'Minehut Console',
 			  buttons: ['Ok'],
-			  message: 'This application has been built to make life simple by skipping the need of a external browser. Built with Electron.'
+			  message: 'This application has been built to make life simple by skipping the need of a external browser. Built with Electron on JavaScript.'
 			}
 			electron.dialog.showMessageBox(focusedWindow, AboutOptions, function () {})
 		  }
@@ -246,7 +246,8 @@ if (process.platform === 'win32') {
 app.on('ready', function () {
   const menu = Menu.buildFromTemplate(contextMenu)
   Menu.setApplicationMenu(menu)
-  let win = new BrowserWindow()
+  
+  /*let win = new BrowserWindow()
   win.webContents.session.on('will-download', (event, item, webContents) => {
   // Set the save path, making Electron not to prompt a save dialog.
   item.setSavePath('/tmp/save.pdf')
@@ -269,7 +270,7 @@ app.on('ready', function () {
       console.log(`Download failed: ${state}`)
     }
   })
-})
+})*/
 })
 
 app.on('browser-window-created', function () {
