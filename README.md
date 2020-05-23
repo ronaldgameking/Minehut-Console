@@ -7,7 +7,7 @@ Download the release package for your machine (Windows, MacOS (unsigned), lunix)
 If you want to compile the source code yourself, use one of the following commands.
 
 All platforms
-```js 
+```batch 
 npm run-script build
 ```
 
