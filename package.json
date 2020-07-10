@@ -1,12 +1,14 @@
 {
   "name": "minehut_console",
-  "version": "0.0.1-19b",
+  "version": "0.0.1-21b",
   "description": "Mineut offline/online console",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-packager . --asar --platform all",
-    "build:win32_x64": "electron-packager . Minehut-Console --asar --platform win32 --arch x64 --overwrite"
+    "build_win32_x64": "electron-packager . Minehut-Console --asar --platform win32 --arch x64 --overwrite",
+    "createInst": "electron-packager D:\\Dev\\Electron\\Minehut-Console\\ --platform=win32 --arch=x64 --overwrite Minehut-Console-source-built",
+    "firebaseLog": "firebase login"
   },
   "repository": {
     "type": "git",
@@ -15,12 +17,14 @@
   "author": "Ronaldgameking",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^6.1.5"
+    "electron": "^6.1.12"
   },
   "dependencies": {
-    "asar": "^2.0.1",
-    "electron-packager": "^14.1.1",
-    "v8-compile-cache": "^2.1.0",
-    "website-scraper": "^4.2.0"
+    "asar": "^2.1.0",
+    "electron-packager": "^14.2.1",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-winstaller": "^4.0.1",
+    "v8-compile-cache": "^2.1.1",
+    "website-scraper": "^4.2.1"
   }
 }
